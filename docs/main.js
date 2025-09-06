@@ -1,16 +1,40 @@
 console.log('main.js');
 (() => {
-    console.log('Here we are!')
+    console.log('Here we are!');
     window.addEventListener("load", (event) => {
-        const multiplier = document.getElementById( 'multiplier' );
-        const multiplicand = document.getElementById( 'multiplicand' );
-        const product = document.getElementById( 'product' );
+        const num1 = document.getElementById('num1');
+        const num2 = document.getElementById('num2');
+        const operator = document.getElementById('operator'); // dropdown or input for operation
+        const result = document.getElementById('result');
 
         const update = () => {
-            product.innerHTML = parseFloat( multiplier.value ) * parseFloat( multiplicand.value );
+            const a = parseFloat(num1.value);
+            const b = parseFloat(num2.value);
+            let res = "";
+
+            if (!isNaN(a) && !isNaN(b)) {
+                switch (operator.value) {
+                    case "add":
+                        res = a + b;
+                        break;
+                    case "subtract":
+                        res = a - b;
+                        break;
+                    case "multiply":
+                        res = a * b;
+                        break;
+                    case "divide":
+                        res = b !== 0 ? (a / b) : "Error: /0";
+                        break;
+                    default:
+                        res = "";
+                }
+            }
+            result.innerHTML = res;
         };
 
-        multiplier.addEventListener("input", update);
-        multiplicand.addEventListener("input", update);
+        num1.addEventListener("input", update);
+        num2.addEventListener("input", update);
+        operator.addEventListener("change", update);
     });      
 })();
